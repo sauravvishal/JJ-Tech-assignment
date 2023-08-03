@@ -20,7 +20,8 @@
     "7a": "ts-node Task07a_custom_types.ts",
     "7b": "ts-node Task07b_custom_objects.ts",
     "7c": "ts-node Task07c_extensions.ts",
-    "9": "ts-node Task09_products.ts"
+    "9": "ts-node Task09_products.ts",
+    "10": "ts-node Task10_tax.ts"    
   },
   "keywords": [
     "commercetools",

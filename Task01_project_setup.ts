@@ -1,5 +1,6 @@
 import { log } from "./utils/logger";
 import { apiRoot } from "./handson/client";
+import { taxCategory } from "./handson/taxCategory";
 
 // TODO: Complete the functions in
 // ./handson/client.ts
@@ -8,12 +9,10 @@ import { apiRoot } from "./handson/client";
 // https://docs.commercetools.com/api/projects/project#get-project
 
 // TODO: Get project settings
-apiRoot.get().execute()
-    .then(res => log(res))
-    .catch(err => log(err));
+// apiRoot.get().execute().then(log).catch(log);
 
 // TODO: Get shipping method by id
 
 
 // TODO: Get standard tax category by key
-
+taxCategory.getTaxCategoryByKey("standard").then(log).catch(log);

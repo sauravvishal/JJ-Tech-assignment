@@ -43,7 +43,31 @@ class Client {
     createStoreApiClient = (client: any) => createApiBuilderFromCtpClient(client).withProjectKey({ projectKey: readConfig(Prefix.DEV).projectKey });
 
     createMyApiClient = () => {
-        throw new Error("Function not implemented");
+        const authMiddlewareOptions = {
+            host: readConfig(Prefix.DEV).oauthHost,
+            projectKey: readConfig(Prefix.DEV).projectKey,
+            credentials: {
+                clientId: readConfig(Prefix.DEV).clientId,
+                clientSecret: readConfig(Prefix.DEV).clientSecret,
+                user: {
+                    username: readConfig(Prefix.DEV).username,
+                    password: readConfig(Prefix.DEV).password
+                }
+            },
+            scopes: [readConfig(Prefix.DEV).scopes],
+            fetch,
+        };
+
+        const httpMiddlewareOptions = {
+            host: readConfig(Prefix.DEV).host,
+            fetch,
+        };
+
+        const client = new ClientBuilder()
+        .withPasswordFlow(authMiddlewareOptions)
+        .withHttpMiddleware(httpMiddlewareOptions)
+        .build();
+        return createApiBuilderFromCtpClient(client).withProjectKey({ projectKey: readConfig(Prefix.DEV).projectKey });
     }
 }
 
@@ -51,4 +75,4 @@ const client = new Client();
 export const apiRoot: ApiRoot = client.createApiClient(client.ctpClient);
 export const importApiRoot: ImportApiRoot = client.createImportApiClient(client.ctpClient);
 export const storeApiRoot: ApiRoot = client.createStoreApiClient(client.ctpClient);
-// export const myApiRoot: ApiRoot = createMyApiClient();
+export const myApiRoot: ApiRoot = client.createMyApiClient();

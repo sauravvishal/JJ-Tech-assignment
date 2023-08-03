@@ -1,10 +1,11 @@
-import * as checkout from "./handson/order";
+import { checkout } from "./handson/order";
 import { createPayment } from "./handson/payment";
 import { log } from "./utils/logger";
 
-const customerKey = "tt-customer";
-const cartId = "";
+const customerKey = "testVishal";
+const cartId = "da2f9c9f-3ebd-4aec-8780-4e48712cd6a2";
 const orderId = "";
+const arrayOfSKUs = ["SKU-3", "SKU-1"];
 
 const paymentDraft = {
     key: "payment" + Math.random().toString(36).substring(2, 7),
@@ -19,9 +20,11 @@ const paymentDraft = {
 }
 
 // create a cart and update the cartId variable
-checkout.createCart(customerKey).then(log).catch(log);
+// checkout.createCart(customerKey).then(log).catch(log);
 
-// checkout.addLineItemsToCart(cartId, ["tulip-seed-box", "tulip-seed-sack"]).then(log).catch(log);
+// checkout.addLineItemsToCart(cartId, arrayOfSKUs).then(log).catch(log);
+
+// checkout.getCartById(cartId).then(log).catch(log);
 
 // checkout.addDiscountCodeToCart(cartId, "SUMMER").then(log).catch(log);
 // checkout.recalculate(cartId).then(log).catch(log);
@@ -39,22 +42,18 @@ checkout.createCart(customerKey).then(log).catch(log);
 const checkoutProcess = async () => {
 
     let emptyCart = await checkout.createCart(customerKey);
-
     let filledCart = await checkout.addLineItemsToCart(
-        emptyCart.body.id, ["tulip-seed-box", "tulip-seed-sack"]
+        emptyCart.body.id, arrayOfSKUs
     );
-
-    filledCart = await checkout.addDiscountCodeToCart(
-        filledCart.body.id, "SUMMER"
-    );
-
+    // filledCart = await checkout.addDiscountCodeToCart(
+    //     filledCart.body.id, "SUMMER"
+    // );
 
     filledCart = await checkout.recalculate(filledCart.body.id);
     filledCart = await checkout.setShippingMethod(filledCart.body.id);
 
     const payment = await createPayment(paymentDraft);
     filledCart = await checkout.addPaymentToCart(filledCart.body.id, payment.body.id);
-
     let order = await checkout.createOrderFromCart(filledCart.body.id);
     order = await checkout.setOrderState(order.body.id, "Confirmed");
     order = await checkout.updateOrderCustomState(order.body.id, "tt-order-packed");
@@ -63,7 +62,9 @@ const checkoutProcess = async () => {
             status: 201,
             message: "order created: " + order.body.id,
         };
+    } else {
+        throw new Error("Something went wrong.")
     }
 };
 
-// checkoutProcess().then(log).catch(log);
+checkoutProcess().then(log).catch(log);
