@@ -9,16 +9,16 @@ const productDraft: ProductDraft = {
     },
     "categories": [{
         "typeId": "category",
-        "id": "200527d7-b568-446e-969d-d83c94682ddb"
+        "id": "bd94bc73-d592-4ba3-9501-0bb84cd6de1d"
     }],
     "name": {
-        "en": "Product 1"
+        "en": "Product 2"
     },
     "slug": {
-        "en": "product_slug_1"
+        "en": "product_slug_2"
     },
     "masterVariant": {
-        "sku": "SKU-1",
+        "sku": "SKU-2",
         "prices": [{
             "value": {
                 "currencyCode": "EUR",
@@ -44,7 +44,7 @@ const productDraft: ProductDraft = {
             }
         }]
     }],
-    "key": "19101995",
+    "key": "123456789",
     "taxCategory": {
         "typeId": "tax-category",
         "id": "2429fbab-457f-4b5b-893d-2a0e377fd929"
@@ -75,7 +75,7 @@ const productTypeId = "c574ae71-2929-4d5f-8e26-36ba4ce2d646";
 
 // products.createProduct(productDraft).then(log).catch(log);
 
-// products.getProductByKey(productDraft.key!).then(log).catch(log);
+products.getProductByKey(productDraft.key!).then(log).catch(log);
 
 // products.updateProductByKey(productDraft.key!).then(log).catch(log);
 
@@ -85,4 +85,6 @@ const productTypeId = "c574ae71-2929-4d5f-8e26-36ba4ce2d646";
 
 // products.getProductTypeById(productTypeId).then(log).catch(log);
 
-products.publishProduct(productDraft.key!).then(log).catch(log);
+// products.publishProduct(productDraft.key!).then(log).catch(log);
+
+// products.getAllProduct().then(log).catch(log);

@@ -2,16 +2,13 @@ import { FacetRange, FacetTerm, ProductProjection } from "@commercetools/platfor
 import { apiRoot } from "./handson/client";
 import { simulateSearch } from "./handson/search";
 import { log } from "./utils/logger";
+import {category} from "./handson/category";
 
 
 const search = async () => {
 
-    const categoryId = (await apiRoot
-        .categories()
-        .withKey({ key: "plant-seeds" })
-        .get()
-        .execute()).body.id;
-
+    const categoryId = (await category.getCategoryByKey("plant-seeds")).body.id;
+    console.log("===categoryId====", categoryId)
     const searchParams = {
         "staged": false,
         "markMatchingVariants": true,

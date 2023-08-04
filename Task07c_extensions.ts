@@ -12,7 +12,7 @@ const extensionDraft: any = {
     key: "tt-order-checker",
     destination: {
         type: "GoogleCloudFunction",
-        url: "https://europe-west1-ct-support.cloudfunctions.net/training-extensions-sample"
+        url: readConfig(Prefix.DEV).host
     },
     triggers: [{
         resourceTypeId: "order",

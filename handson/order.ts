@@ -217,6 +217,28 @@ class OrderClass {
                     })
                     .execute()
             );
+
+    removeLineItemFromCart = async (cartId: string, lineItemId: string): Promise<ClientResponse<Cart>> => {
+        const cart = (await this.getCartById(cartId)).body;
+        return apiRoot.carts().withId({ ID: cartId }).post({
+            body: {
+                version: cart.version,
+                actions: [{
+                    action: 'removeLineItem',
+                    lineItemId
+                }]
+            }
+        }).execute();
+    }
+
+    removeCart = async (ID: string): Promise<ClientResponse<any>> => {
+        const cart = (await this.getCartById(ID)).body;
+        return apiRoot.carts().withId({ ID }).delete({
+            queryArgs: {
+                version: cart.version
+            }
+        }).execute();
+    }
 }
 
 export const checkout = new OrderClass();

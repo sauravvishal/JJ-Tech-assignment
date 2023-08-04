@@ -9,11 +9,14 @@ import {
     ImportResponse
 } from "@commercetools/importapi-sdk";
 import csvtojsonV2 from "csvtojson";
-import { importApiRoot } from "./client";
+import { apiRoot, importApiRoot } from "./client";
 
-export const createImportContainer = (key: string): Promise<ClientResponse<ImportContainer>> => {
-    throw new Error("Function not implemented")
-}
+export const createImportContainer = (key: string): Promise<ClientResponse<ImportContainer>> => importApiRoot.importContainers().post({
+    body: {
+        key,
+        resourceType: "product-draft"
+    }
+}).execute();
 
 export const checkImportSummary = (importContainerKey: string): Promise<ClientResponse<ImportSummary>> => {
     return importApiRoot

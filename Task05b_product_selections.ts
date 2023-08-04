@@ -10,9 +10,9 @@ import { log } from "./utils/logger";
 
 const productSelectionKey = "tt-berlin-store-selection";
 
-createProductSelection(productSelectionKey, "Berlin Store Selection").then(log).catch(log);
+// createProductSelection(productSelectionKey, "Berlin Store Selection").then(log).catch(log);
 
-// getProductSelectionByKey(productSelectionKey).then(log).catch(log);
+getProductSelectionByKey(productSelectionKey).then(log).catch(log);
 
 // addProductsToProductSelection(productSelectionKey, ['tulip-seed-product']).then(log).catch(log);
 

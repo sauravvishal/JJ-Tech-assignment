@@ -3,7 +3,8 @@ import { createPayment } from "./handson/payment";
 import { log } from "./utils/logger";
 
 const customerKey = "testVishal";
-const cartId = "da2f9c9f-3ebd-4aec-8780-4e48712cd6a2";
+const cartId = "e2b10f1a-9e3a-4949-972b-ba4a3dc20155";
+const lineItemId = "d7df2634-8189-4ca5-8bb2-69233f6d87f0";
 const orderId = "";
 const arrayOfSKUs = ["SKU-3", "SKU-1"];
 
@@ -24,7 +25,11 @@ const paymentDraft = {
 
 // checkout.addLineItemsToCart(cartId, arrayOfSKUs).then(log).catch(log);
 
-// checkout.getCartById(cartId).then(log).catch(log);
+checkout.getCartById(cartId).then(log).catch(log);
+
+// checkout.removeLineItemFromCart(cartId!, lineItemId!).then(log).catch(log);
+
+// checkout.removeCart(cartId).then(log).catch(log);
 
 // checkout.addDiscountCodeToCart(cartId, "SUMMER").then(log).catch(log);
 // checkout.recalculate(cartId).then(log).catch(log);
@@ -67,4 +72,4 @@ const checkoutProcess = async () => {
     }
 };
 
-checkoutProcess().then(log).catch(log);
+// checkoutProcess().then(log).catch(log);

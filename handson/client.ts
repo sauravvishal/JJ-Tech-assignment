@@ -3,7 +3,7 @@ import { createApiBuilderFromCtpClient } from "@commercetools/platform-sdk";
 import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions, PasswordAuthMiddlewareOptions } from "@commercetools/sdk-client-v2";
 import fetch from "node-fetch";
 import { ApiRoot, ImportApiRoot } from "../types/global";
-import { Prefix, Config, readConfig } from "../utils/config";
+import { Prefix, readConfig } from "../utils/config";
 
 class Client {
     authMiddlewareOptions: AuthMiddlewareOptions;
@@ -43,7 +43,7 @@ class Client {
     createStoreApiClient = (client: any) => createApiBuilderFromCtpClient(client).withProjectKey({ projectKey: readConfig(Prefix.DEV).projectKey });
 
     createMyApiClient = () => {
-        const authMiddlewareOptions = {
+        const authMiddlewareOptions: PasswordAuthMiddlewareOptions = {
             host: readConfig(Prefix.DEV).oauthHost,
             projectKey: readConfig(Prefix.DEV).projectKey,
             credentials: {
@@ -58,15 +58,15 @@ class Client {
             fetch,
         };
 
-        const httpMiddlewareOptions = {
+        const httpMiddlewareOptions: HttpMiddlewareOptions = {
             host: readConfig(Prefix.DEV).host,
             fetch,
         };
 
         const client = new ClientBuilder()
-        .withPasswordFlow(authMiddlewareOptions)
-        .withHttpMiddleware(httpMiddlewareOptions)
-        .build();
+            .withPasswordFlow(authMiddlewareOptions)
+            .withHttpMiddleware(httpMiddlewareOptions)
+            .build();
         return createApiBuilderFromCtpClient(client).withProjectKey({ projectKey: readConfig(Prefix.DEV).projectKey });
     }
 }

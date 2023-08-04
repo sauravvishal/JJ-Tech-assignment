@@ -25,36 +25,30 @@ class Customers {
         }).execute();
     }
 
-    // getCustomerAndCustomerGroup = async (customerKey: string, customerGroupKey: string): Promise<any> => {
-    //     try {
-    //         const [customer, customerGroup] = await Promise.all([
-    //             apiRoot.customers().withKey({ key: customerKey }).get().execute(),
-    //             apiRoot.customerGroups().withKey({ key: customerGroupKey }).get().execute()
-    //         ]);
-    //         return { customer: customer.body, customerGroup: customerGroup.body };
-    //     } catch (error) {
-    //         return { customer: [], customerGroup: [] };
-    //     }
-    // }
+    getCustomerAndCustomerGroup = async (customerKey: string, customerGroupKey: string): Promise<any> => {
+        const [customer, customerGroup] = await Promise.all([
+            apiRoot.customers().withKey({ key: customerKey }).get().execute(),
+            apiRoot.customerGroups().withKey({ key: customerGroupKey }).get().execute()
+        ]);
+        return { customer: customer.body, customerGroup: customerGroup.body };
+    }
 
-    // assignCustomerToCustomerGroup = async (customerKey: string, customerGroupKey: string): Promise<ClientResponse<Customer>> => {
-    //     const { customer, customerGroup } = await this.getCustomerAndCustomerGroup(customerKey, customerGroupKey);
+    assignCustomerToCustomerGroup = async (customerKey: string, customerGroupKey: string): Promise<ClientResponse<Customer>> => {
+        const { customer, customerGroup } = await this.getCustomerAndCustomerGroup(customerKey, customerGroupKey);
 
-    //     customer.customerGroup = {
-    //         typeId: 'customer-group',
-    //         id: customerGroup.id
-    //     };
-
-    //     return apiRoot.customers().withId({ ID: customer.id }).post({
-    //         body: {
-    //             version: customer.version,
-    //             actions: [{
-    //                 action: 'setCustomerGroup',
-    //                 customerGroup: customerGroup
-    //             }]
-    //         }
-    //     }).execute()
-    // }
+        return apiRoot.customers().withId({ ID: customer.id }).post({
+            body: {
+                version: customer.version,
+                actions: [{
+                    action: "setCustomerGroup",
+                    customerGroup: {
+                        typeId: "customer-group",
+                        id: customerGroup.id
+                    }
+                }]
+            }
+        }).execute()
+    }
 }
 
 export const customer = new Customers();
