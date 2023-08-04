@@ -1,6 +1,7 @@
 import { log } from "./utils/logger";
 import { apiRoot } from "./handson/client";
 import { taxCategory } from "./handson/taxCategory";
+import { shipping } from "./handson/shippingMethod";
 
 // TODO: Complete the functions in
 // ./handson/client.ts
@@ -12,7 +13,7 @@ import { taxCategory } from "./handson/taxCategory";
 // apiRoot.get().execute().then(log).catch(log);
 
 // TODO: Get shipping method by id
-
+shipping.getShippingMethodByKey("f4568408-ad62-4990-8e09-4040d420dff2").then(log).catch(log);
 
 // TODO: Get standard tax category by key
-taxCategory.getTaxCategoryByKey("standard").then(log).catch(log);
+// taxCategory.getTaxCategoryByKey("standard").then(log).catch(log);

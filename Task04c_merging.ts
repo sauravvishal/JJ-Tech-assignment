@@ -1,24 +1,25 @@
 import { CustomerSignin } from "@commercetools/platform-sdk";
-import * as checkout from "./handson/order";
+import { checkout } from "./handson/order";
 import { log } from "./utils/logger";
+import { readConfig, Prefix } from "./utils/config";
 
-const customerKey = "tt-customer";
+const customerKey = "testVishal";
 
 const mergingProcessTest = async () => {
     let anonymousCart = await checkout.createAnonymousCart();
 
     let customerCart = await checkout.createCart(customerKey);
 
-    anonymousCart = await checkout.addLineItemsToCart(anonymousCart.body.id, ['tulip-seed-box', 'tulip-seed-box', 'tulip-seed-box']);
+    anonymousCart = await checkout.addLineItemsToCart(anonymousCart.body.id, ["SKU-3"]);
 
-    customerCart = await checkout.addLineItemsToCart(customerCart.body.id, ['tulip-seed-box', 'tulip-seed-sack', 'tulip-seed-package']);
+    customerCart = await checkout.addLineItemsToCart(customerCart.body.id, ["SKU-1"]);
 
     log("Anonymous Cart: " + anonymousCart.body.id);
     log("Customer Cart: " + customerCart.body.id);
 
     const customerDetails: CustomerSignin = {
-        email: "test@test.com",
-        password: "password",
+        email: readConfig(Prefix.DEV).username,
+        password: readConfig(Prefix.DEV).password,
         anonymousCartId: anonymousCart.body.id,
         anonymousCartSignInMode: "MergeWithExistingCustomerCart", // try switching to UseAsNewActiveCustomerCart
     };

@@ -26,7 +26,7 @@ const disCode: DiscountCodeDraft = {
 
 // taxCategory.createTaxCategory(taxCategoryDraft).then(log).catch(log);
 
-// taxCategory.getTaxCategoryByKey("regular").then(log).catch(log);
+taxCategory.getTaxCategoryByKey("regular").then(log).catch(log);
 
 // taxCategory.createDiscountCode(disCode).then(log).catch(log);
 
