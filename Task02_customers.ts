@@ -20,14 +20,14 @@ const customerDraft: CustomerDraft = {
 
 // customer.createCustomer(customerDraft).then(log).catch(log);
 
-// customer.getCustomerByKey(customerDraft.key!).then(log).catch(log);
+customer.getCustomerByKey(customerDraft.key!).then(log).catch(log);
 
-// customer.getCustomerByKey(customerDraft.key!)
-//     .then(customer.createCustomerToken)
-//     .then(customer.confirmCustomerEmail)
-//     .then(log)
-//     .catch(log);
-
-customer.assignCustomerToCustomerGroup(customerDraft.key!, "silver")
+customer.getCustomerByKey(customerDraft.key!)
+    .then(customer.createCustomerToken)
+    .then(customer.confirmCustomerEmail)
     .then(log)
     .catch(log);
+
+// customer.assignCustomerToCustomerGroup(customerDraft.key!, "silver")
+//     .then(log)
+//     .catch(log);
